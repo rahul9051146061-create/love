@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gupta Ji ❤️ Mrs Malakar</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+font-family:'Poppins',sans-serif;
+min-height:100vh;
+background:linear-gradient(135deg,#ff416c,#ff4b2b);
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+}
+.card{
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(12px);
+border-radius:22px;
+padding:28px;
+width:92%;
+max-width:420px;
+text-align:center;
+box-shadow:0 25px 45px rgba(0,0,0,.35);
+animation:fadeIn 1.2s ease;
+}
+h1{font-family:'Great Vibes',cursive;font-size:3rem;margin-bottom:10px}
+p{font-size:.95rem;line-height:1.7;margin-bottom:18px}
+button{
+padding:12px 26px;
+border-radius:30px;
+border:none;
+font-size:1rem;
+cursor:pointer;
+transition:.3s;
+margin:6px
+}
+.yes{background:#fff;color:#ff416c}
+.no{background:#000;color:#fff;position:absolute}
+.yes:hover{transform:scale(1.08)}
+.hidden{display:none}
+
+/* Photo frame styling */
+.photo-frame{
+position:relative;
+width:100%;
+max-width:360px;
+margin:14px auto 0;
+aspect-ratio:1/1;
+}
+.frame-border{
+position:absolute;
+top:0;left:0;right:0;bottom:0;
+border:6px solid rgba(255,215,0,0.7);
+border-radius:18px;
+box-shadow:
+  0 0 0 2px rgba(255,255,255,0.4),
+  0 0 20px rgba(255,215,0,0.4),
+  0 0 40px rgba(255,215,0,0.15),
+  inset 0 0 20px rgba(255,215,0,0.25),
+  0 8px 32px rgba(0,0,0,0.4);
+z-index:3;
+pointer-events:none;
+}
+.frame-border::before{
+content:'';
+position:absolute;
+top:-3px;left:-3px;right:-3px;bottom:-3px;
+border:2px solid rgba(255,255,255,0.3);
+border-radius:20px;
+}
+.frame-border::after{
+content:'';
+position:absolute;
+top:3px;left:3px;right:3px;bottom:3px;
+border:1px solid rgba(255,215,0,0.4);
+border-radius:15px;
+}
+/* Corner decorations */
+.frame-corner{
+position:absolute;
+width:20px;height:20px;
+z-index:4;
+pointer-events:none;
+}
+.frame-corner::before,.frame-corner::after{
+content:'';
+position:absolute;
+background:rgba(255,215,0,0.8);
+border-radius:2px;
+}
+.frame-corner::before{width:20px;height:3px}
+.frame-corner::after{width:3px;height:20px}
+.corner-tl{top:-2px;left:-2px}
+.corner-tr{top:-2px;right:-2px}
+.corner-tr::before{right:0}
+.corner-tr::after{right:0}
+.corner-bl{bottom:-2px;left:-2px}
+.corner-bl::before{bottom:0}
+.corner-bl::after{bottom:0}
+.corner-br{bottom:-2px;right:-2px}
+.corner-br::before{right:0;bottom:0}
+.corner-br::after{right:0;bottom:0}
+
+/* Slideshow with slide animation */
+.slideshow-viewport{
+position:relative;
+width:100%;
+height:100%;
+border-radius:14px;
+overflow:hidden;
+background:radial-gradient(ellipse at center, #1a1a2e 0%, #0d0d0d 100%);
+}
+.slideshow-viewport::after{
+content:'';
+position:absolute;
+top:0;left:0;right:0;bottom:0;
+background:radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.3) 100%);
+pointer-events:none;
+z-index:2;
+border-radius:14px;
+}
+.slideshow-track{
+display:flex;
+height:100%;
+transition:transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.slideshow-track .slide-container{
+min-width:100%;
+width:100%;
+height:100%;
+flex-shrink:0;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+animation:kenBurns 7s ease-in-out infinite alternate;
+background:radial-gradient(ellipse at center, #2d1b3d 0%, #0d0d0d 100%);
+}
+.slideshow-track .slide-container img{
+width:100%;
+height:100%;
+object-fit:contain;
+}
+/* Landscape photos - contain to show full width with both people */
+.slideshow-track .slide-container.landscape img{
+object-fit:contain;
+object-position:center center;
+}
+/* Portrait photos - use cover so both people are fully visible */
+.slideshow-track .slide-container.portrait img{
+object-fit:cover;
+object-position:center 35%;
+}
+@keyframes kenBurns{
+0%{transform:scale(1)}
+100%{transform:scale(1.05)}
+}
+
+.slide-dots{
+display:flex;
+justify-content:center;
+gap:8px;
+margin-top:12px;
+}
+.slide-dots .dot{
+width:10px;height:10px;
+border-radius:50%;
+background:rgba(255,255,255,0.4);
+transition:background 0.3s, transform 0.3s;
+cursor:pointer;
+}
+.slide-dots .dot.active{
+background:#ffd700;
+transform:scale(1.3);
+}
+.slide-nav{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+background:rgba(255,255,255,0.3);
+border:none;
+color:#fff;
+font-size:1.5rem;
+padding:8px 12px;
+cursor:pointer;
+border-radius:50%;
+z-index:5;
+backdrop-filter:blur(4px);
+transition:background 0.3s;
+}
+.slide-nav:hover{
+background:rgba(255,255,255,0.5);
+}
+.slide-nav.prev{left:8px}
+.slide-nav.next{right:8px}
+.heart{
+position:absolute;
+bottom:-20px;
+font-size:20px;
+animation:float 6s linear infinite;
+}
+.ring{
+font-size:70px;
+animation:pulse 1.4s infinite;
+margin:10px 0
+}
+#ytplayer{
+position:fixed;
+top:-9999px;
+left:-9999px;
+width:1px;
+height:1px;
+opacity:0;
+pointer-events:none;
+}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1}}
+@keyframes float{0%{transform:translateY(0);opacity:1}100%{transform:translateY(-110vh);opacity:0}}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
+</style>
+</head>
+<body>
+
+<!-- YouTube Music Player (hidden) -->
+<div id="ytplayer"></div>
+
+<!-- PASSWORD -->
+<div class="card" id="password">
+<h1>❤️ Secret Entry ❤️</h1>
+<p>Enter our special word to continue 💌</p>
+<input id="pass" type="password" placeholder="Our secret" style="padding:10px;border-radius:20px;border:none;width:80%"><br><br>
+<button class="yes" onclick="checkPass()">Unlock 🔐</button>
+</div>
+
+<!-- STEP 1 -->
+<div class="card hidden" id="step1">
+<h1>Mrs Malakar ❤️</h1>
+<p>Before going ahead… I have one important question 🥹</p>
+<h2>Do you love me? 💖</h2><br>
+<button class="yes" onclick="openLove()">YES 😍</button>
+<button class="no" id="noBtn">NO 🙈</button>
+</div>
+
+<!-- STEP 2 -->
+<div class="card hidden" id="step2">
+<h1>Gupta Ji ❤️</h1>
+<p>You just made my heart the happiest 💕<br>I choose you. Always.</p>
+<div class="ring">💍</div>
+<button class="yes" onclick="openSurprise()">One More Surprise 💖</button>
+</div>
+
+<!-- STEP 3 -->
+<div class="card hidden" id="step3">
+<h1>Forever Us 💖</h1>
+<p>
+From smiles to silence, from today to forever…<br>
+Will you be my Valentine, my partner, my everything? 💍
+</p>
+<div class="photo-frame">
+<div class="frame-border">
+<div class="frame-corner corner-tl"></div>
+<div class="frame-corner corner-tr"></div>
+<div class="frame-corner corner-bl"></div>
+<div class="frame-corner corner-br"></div>
+</div>
+<div class="slideshow-viewport" id="slideshow">
+<button class="slide-nav prev" onclick="changeSlide(-1)">&#10094;</button>
+<div class="slideshow-track" id="slideshowTrack">
+<div class="slide-container landscape"><img src="photo1.jpeg" alt="Us together" /></div>
+<div class="slide-container portrait"><img src="photo2.jpeg" alt="Our special moment" /></div>
+<div class="slide-container landscape"><img src="photo3.jpeg" alt="Together forever" /></div>
+<div class="slide-container landscape"><img src="photo4.jpeg" alt="You and me" /></div>
+<div class="slide-container portrait"><img src="photo5.jpeg" alt="Celebrating us" /></div>
+</div>
+<button class="slide-nav next" onclick="changeSlide(1)">&#10095;</button>
+</div>
+</div>
+<div class="slide-dots" id="slideDots">
+<span class="dot active" onclick="goToSlide(0)"></span>
+<span class="dot" onclick="goToSlide(1)"></span>
+<span class="dot" onclick="goToSlide(2)"></span>
+<span class="dot" onclick="goToSlide(3)"></span>
+<span class="dot" onclick="goToSlide(4)"></span>
+</div>
+</div>
+
+<!-- YouTube IFrame API -->
+<script>
+var tag=document.createElement('script');
+tag.src='https://www.youtube.com/iframe_api';
+var firstScriptTag=document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag,firstScriptTag);
+
+var ytPlayer;
+var ytReady=false;
+var musicRequested=false;
+
+function onYouTubeIframeAPIReady(){
+ytPlayer=new YT.Player('ytplayer',{
+height:'1',
+width:'1',
+videoId:'8SYPKQMW_2Q',
+playerVars:{
+autoplay:0,
+loop:1,
+playlist:'8SYPKQMW_2Q',
+start:0,
+controls:0,
+showinfo:0,
+modestbranding:1,
+rel:0,
+fs:0,
+iv_load_policy:3
+},
+events:{
+'onReady':function(event){
+ytReady=true;
+if(musicRequested){
+event.target.playVideo();
+}
+},
+'onStateChange':function(event){
+if(event.data===YT.PlayerState.ENDED){
+ytPlayer.seekTo(0);
+ytPlayer.playVideo();
+}
+}
+}
+});
+}
+
+function playMusic(){
+musicRequested=true;
+if(ytReady&&ytPlayer){
+try{
+ytPlayer.setVolume(100);
+ytPlayer.seekTo(0);
+ytPlayer.playVideo();
+}catch(e){}
+}
+}
+
+// Try to start music on any first user interaction
+document.addEventListener('click',function startOnFirstClick(){
+playMusic();
+document.removeEventListener('click',startOnFirstClick);
+},{once:true});
+</script>
+
+<script>
+const noBtn=document.getElementById('noBtn');
+noBtn.addEventListener('mouseover',()=>{
+noBtn.style.left=Math.random()*80+'%';
+noBtn.style.top=Math.random()*80+'%';
+});
+
+function checkPass(){
+const p=document.getElementById('pass').value;
+if(p.toLowerCase()==='love'){
+document.getElementById('password').classList.add('hidden');
+document.getElementById('step1').classList.remove('hidden');
+playMusic();
+}else{
+alert('Wrong secret 😜');
+}
+}
+
+function openLove(){
+document.getElementById('step1').classList.add('hidden');
+document.getElementById('step2').classList.remove('hidden');
+playMusic();
+}
+
+function openSurprise(){
+document.getElementById('step2').classList.add('hidden');
+document.getElementById('step3').classList.remove('hidden');
+startSlideshow();
+}
+
+// Slideshow with sliding animation
+let currentSlide=0;
+let slideInterval=null;
+const totalSlides=5;
+const track=document.getElementById('slideshowTrack');
+const dots=()=>document.querySelectorAll('#slideDots .dot');
+
+function showSlide(n){
+currentSlide=((n%totalSlides)+totalSlides)%totalSlides;
+track.style.transform='translateX(-'+currentSlide*100+'%)';
+const d=dots();
+d.forEach(dot=>dot.classList.remove('active'));
+d[currentSlide].classList.add('active');
+}
+
+function changeSlide(dir){
+showSlide(currentSlide+dir);
+resetAutoSlide();
+}
+
+function goToSlide(n){
+showSlide(n);
+resetAutoSlide();
+}
+
+function startSlideshow(){
+slideInterval=setInterval(()=>showSlide(currentSlide+1),3500);
+}
+
+function resetAutoSlide(){
+clearInterval(slideInterval);
+slideInterval=setInterval(()=>showSlide(currentSlide+1),3500);
+}
+
+setInterval(()=>{
+const h=document.createElement('div');
+h.className='heart';
+h.innerHTML='❤';
+h.style.left=Math.random()*100+'vw';
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),6000);
+},450);
+</script>
+
+</body>
+</html>
